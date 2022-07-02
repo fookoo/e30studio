@@ -1,4 +1,6 @@
-# e30Studio React
+# e30Studio
+
+This package is collection of hooks and components
 
 ## Getting started
 
@@ -41,7 +43,7 @@ Response:
 
 ```typescript jsx
 import React from 'react'
-import { useToggle } from '@e30stido/react'
+import { useToggle } from 'e30studio'
 
 export const Foo: React.FC = () => {
     const { value, toggle } = useToggle();
@@ -74,7 +76,7 @@ REACT_APP_USE_NEW_MENU=true
 
 ```typescript jsx
 import React from 'react'
-import { useFeatureFlag } from '@e30stido/react'
+import { useFeatureFlag } from 'e30studio'
 import { MenuV1, MenuV2 } from './components'
 
 export const Foo: React.FC = () => {
