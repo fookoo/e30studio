@@ -1,24 +1,33 @@
 {
   "name": "e30studio",
-  "version": "0.0.2",
-  "main": "dist/cjs/index.js",
-  "types": "dist/cjs/types/index.d.js",
-  "module": "dist/esm/index.js",
+  "version": "0.0.3",
+  "main": "index.js",
+  "types": "index.d.js",
   "scripts": {
+    "postinstall": "./scripts/postinstall.sh",
     "build": "rollup -c",
     "lint": "eslint -c .eslintrc.json ./src/**/*.{ts,tsx} --fix"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.8.6",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "rxjs": "^7.5.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.8.6",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.3",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.30.3",
     "@typescript-eslint/parser": "^5.30.3",
     "eslint": "^8.19.0",
@@ -31,13 +40,16 @@
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^5.5.1",
+    "install-peers": "^1.0.4",
     "jest": "^28.1.2",
     "prettier": "^2.7.1",
     "rollup": "^2.75.7",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
+    "rxjs": "^7.5.5",
     "tslib": "^2.4.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "uuid": "^8.3.2"
   }
 }
