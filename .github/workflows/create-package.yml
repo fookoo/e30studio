@@ -1,0 +1,24 @@
+name: Create NPM package
+on:
+  push:
+    branches:
+      - master
+env:
+  CI: true
+jobs:
+  build:
+    name: Build NPM package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install
+      - name: Prepare for publish
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          auth-token: ${{ secrets.NPM_TOKEN }}
+          cmd: publishPackage
+
