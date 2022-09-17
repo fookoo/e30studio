@@ -16,9 +16,11 @@ jobs:
         uses: borales/actions-yarn@v3.0.0
         with:
           cmd: install
-      - name: Prepare for publish
-        uses: borales/actions-yarn@v3.0.0
+      - uses: actions/setup-node@v3
         with:
-          auth-token: ${{ secrets.NPM_TOKEN }}
-          cmd: publishPackage
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn publishPackage
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
