@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { AlertTitle, Typography } from '@mui/material'
 import {
   INotification,
   INotificationTypeEnum,
@@ -6,7 +7,6 @@ import {
   NotificationType
 } from './services/notifications/notifications.service'
 import { AlertStyled, GroupCountStyled, NotificationsStyled } from './notifications.style'
-import { AlertTitle, Typography } from '@mui/material'
 
 interface INotificationProps {
   group?: boolean
