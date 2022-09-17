@@ -6,21 +6,19 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 
 export default [
   {
-    external: [
-      '@emotion/react',
-      '@emotion/styled',
-      '@mui/material',
-      'react',
-      'react-dom',
-      'rxjs',
-      'uuid',
-      'tslib'
-    ],
     input: ['src/index.ts', 'src/hooks/index.ts', 'src/components/index.ts', 'src/styled/index.ts'],
     output: [
       {
-        dir: 'dist',
+        dir: 'dist/cjs',
         format: 'cjs',
+        exports: 'auto',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        sourcemap: true
+      },
+      {
+        dir: 'dist/esm',
+        format: 'esm',
         exports: 'auto',
         preserveModules: true,
         preserveModulesRoot: 'src',

@@ -6,6 +6,7 @@
   "repository": "https://github.com/fookoo/e30studio",
   "main": "index.js",
   "types": "index.d.ts",
+  "module": "esm/index.js",
   "scripts": {
     "build": "rollup -c",
     "publishPackage": "yarn build && node scripts/prepare-package.js && cd dist && npm publish",
