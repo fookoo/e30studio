@@ -1,8 +1,15 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from '@rollup/plugin-typescript'
+import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+
+const common = {
+  exports: 'auto',
+  preserveModules: true,
+  preserveModulesRoot: 'src',
+  sourcemap: false
+}
 
 export default [
   {
@@ -11,18 +18,12 @@ export default [
       {
         dir: 'dist/cjs',
         format: 'cjs',
-        exports: 'auto',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        sourcemap: true
+        ...common
       },
       {
         dir: 'dist/esm',
         format: 'esm',
-        exports: 'auto',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        sourcemap: true
+        ...common
       }
     ],
     plugins: [

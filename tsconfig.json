@@ -6,19 +6,17 @@
     "jsx": "react",
     "module": "ESNext",
     "target": "ES5",
-//    "outDir": "dist",
-//    "declaration": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "moduleResolution": "node",
-    "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "declaration": true
   },
   "exclude": [
     "dist",
     "node_modules",
     "src/**/*.test.*",
-    "src/**/*.stories.*",
-  ],
+    "src/**/*.stories.*"
+  ]
 }
