@@ -30,4 +30,6 @@ export const useToggle = (initialValue = false): UseToggleResponse => {
     }),
     [value, open, close, toggle]
   )
+
+  return hook
 }
