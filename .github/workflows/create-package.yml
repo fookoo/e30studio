@@ -17,15 +17,15 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
-        run: npm install
+        run: yarn install
       - name: Build Package
-        run: npm run build
+        run: yarn build
       - name: Prepare package.json
         run: node scripts/prepare-package.js
       - name: Change dir to dist
         run: |
           cd dist
-          npm publish
+          yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
