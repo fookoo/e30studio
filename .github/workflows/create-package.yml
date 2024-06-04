@@ -14,8 +14,10 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
+      - name: Install yarn
+        run: npm install yarn -G
       - name: Install dependencies
         run: yarn install
       - name: Build Package
