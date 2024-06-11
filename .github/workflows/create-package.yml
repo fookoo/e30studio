@@ -17,9 +17,9 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
       - name: Install yarn
-        run: npm install yarn -G
+        run: corepack enable || corepack use yarn@*
       - name: Install dependencies
-        run: yarn install
+        run: yarn
       - name: Build Package
         run: yarn build
       - name: Prepare package.json
