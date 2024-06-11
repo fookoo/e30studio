@@ -27,6 +27,7 @@ jobs:
       - name: Change dir to dist
         run: |
           cd dist
+          touch yarn.lock
           yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
