@@ -11,6 +11,9 @@ This package is a collection of React hooks and components, its contains also us
 - [Components](#components)
     - [Notifications](#notifications)
     - [SplitView](#splitview)
+- [Services](#services)
+  - [LocalStorage](#localstorageservice)
+  - [SessionStorage](#sessionstorageservice)
 
 ---
 
@@ -205,3 +208,38 @@ export const App: React.FC = () => {
     </SplitView>
 }
 ```
+
+## Services
+
+Service is a static class that can perform various things
+
+### LocalStorageService
+
+```typescript
+interface ILocalStorageService {
+  get<T>(key: string, defaultValue: T, parse?: boolean): T
+  set(key: string, value: string | object): void
+  clear(): void
+}
+```
+
+#### example
+
+```typescript jsx
+import React from 'react'
+import { LocalStorageService } from 'e30studio/services'
+
+export const App: React.FC = () => {
+    const value = LocalStorageService.get('my-value', 'default')
+    const myObj = LocalStorageService.get('my-obj', { name: '', age: 0 }, true)
+  
+    return <div>
+      <span>value: {value}</span>
+      <span>value from object: {myObj.name}</span>
+    </div>
+}
+```
+
+### SessionStorageService
+
+works exactly the same as LocalStorageService but operates over SessionStorage
