@@ -3164,7 +3164,6 @@ __metadata:
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-terser: "npm:^7.0.2"
     rollup-plugin-typescript2: "npm:^0.36.0"
-    rxjs: "npm:^7.8.1"
     tslib: "npm:^2.6.3"
     typescript: "npm:^5.4.5"
     uuid: "npm:^10.0.0"
@@ -3175,6 +3174,7 @@ __metadata:
     "@mui/material": ^5.15.19
     react: ^18.3.1
     react-dom: ^18.3.1
+    rxjs: ^7.8.1
     uuid: ^10.0.0
   languageName: unknown
   linkType: soft
@@ -6906,15 +6906,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.8.1":
-  version: 7.8.1
-  resolution: "rxjs@npm:7.8.1"
-  dependencies:
-    tslib: "npm:^2.1.0"
-  checksum: 10c0/3c49c1ecd66170b175c9cacf5cef67f8914dcbc7cd0162855538d365c83fea631167cacb644b3ce533b2ea0e9a4d0b12175186985f89d75abe73dbd8f7f06f68
-  languageName: node
-  linkType: hard
-
 "safe-array-concat@npm:^1.1.2":
   version: 1.1.2
   resolution: "safe-array-concat@npm:1.1.2"
@@ -7555,7 +7546,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.1.0, tslib@npm:^2.6.2, tslib@npm:^2.6.3":
+"tslib@npm:^2.6.2, tslib@npm:^2.6.3":
   version: 2.6.3
   resolution: "tslib@npm:2.6.3"
   checksum: 10c0/2598aef53d9dbe711af75522464b2104724d6467b26a60f2bdac8297d2b5f1f6b86a71f61717384aa8fd897240467aaa7bcc36a0700a0faf751293d1331db39a
