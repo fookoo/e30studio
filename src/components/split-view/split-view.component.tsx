@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useCallback, useRef, useState } from 'react'
 
 import { BAR_WIDTH, MAX_WIDTH, MIN_WIDTH } from './split-view.const'

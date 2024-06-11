@@ -1,5 +1,3 @@
-/// Copyright 2023 Hitachi Energy. All rights reserved.
-
 import React from 'react'
 
 import { ThemeProvider, createTheme } from '@mui/material'
