@@ -1,14 +1,24 @@
 # e30Studio
 
-This package is collection of hooks and components
+This package is a collection of React hooks and components, its contains also useful services
 
-## Getting started
+## Table of Contents
+- [Installation](#installation)
+- [Hooks](#hooks)
+    - [useToggle](#useToggle)
+    - [useFeatureFlag](#useFeatureFlag)
+    - [useNotification](#useNotification)
+- [Components](#components)
+    - [Notifications](#notifications)
+    - [SplitView](#splitview)
+
+---
+
+## Installation
 
 ```
 yarn add e30studio
 ```
-
----
 
 ## Hooks
 
@@ -137,9 +147,9 @@ export const Home: React.FC = () => {
 }
 ```
 
-### Components
+## Components
 
-#### Notifications
+### Notifications
 
 Notifications wrapper, use together with useNotification hook
 by default its placed top-left corner of screen (z-index: 1000)
@@ -166,5 +176,32 @@ export const App: React.FC = () => {
           <Home />
         </div>
     </div>
+}
+```
+
+### SplitView
+
+The `SplitView` component allows you to create a two-column layout where the width of the left column is adjustable. This component is ideal for creating resizable sidebars or any other layout with an adjustable left pane.
+
+Props:
+
+| Name            | Optional | Type   | Default      | Description                                           |
+|-----------------|--------|--------|--------------|-------------------------------------------------------|
+| localStorageKey | yes | string | 'split-view' | Key for localstorage to persist width across sessions |
+| minWidth        | yes | number | 200          | Minimal width of left column                          |
+| maxWidth        | yes | number | 800          | Maximal width of left column                          |
+
+
+##### Example
+
+```typescript jsx
+import React from 'react'
+import { SplitView } from 'e30studio/components'
+
+export const App: React.FC = () => {
+    return <SplitView>
+      <div>Left column</div>
+      <div>Right column</div>
+    </SplitView>
 }
 ```
