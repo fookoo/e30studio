@@ -24,7 +24,7 @@ jobs:
         run: yarn build
       - name: Prepare package.json
         run: node scripts/prepare-package.js
-      - name: Change dir to dist
+      - name: Publish package
         run: |
           cd dist
           yarn npm publish

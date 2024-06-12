@@ -69,21 +69,14 @@ export const Foo: React.FC = () => {
 
 ### useFeatureFlag
 
-If you want to have feature flag based on your ENV Variables
-
-`useFeatureFlag([FLAG_1, ... ,FLAG_N])`
-
-Response:
-
-```
-[boolean, ..., boolean]
-```
+The useFeatureFlag hook is a custom React hook that helps you manage feature flags in your application. It abstracts the process of accessing environment variables, making it compatible with both Create React App (CRA) and Vite. 
 
 #### Example
 
 `.env`
 ```
 REACT_APP_USE_NEW_MENU=true
+VITE_USE_NEW_MENU=true
 ```
 
 ```typescript jsx
