@@ -28,8 +28,7 @@ jobs:
       - name: Publish package
         run: |
           cd dist
-          touch yarn.lock
-          yarn npm publish
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
