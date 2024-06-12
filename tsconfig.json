@@ -4,15 +4,20 @@
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "module": "ESNext",
-    "target": "ES5",
+    "module": "esNext",
+    "target": "es6",
+    "lib": ["dom", "esnext"],
     "sourceMap": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "declaration": true
+    "declaration": true,
+    "importHelpers": true
   },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "exclude": [
     "dist",
     "node_modules",
