@@ -38,6 +38,12 @@ export default [
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
       terser()
-    ]
+    ],
+    onwarn(warning, warn) {
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
+        return
+      }
+      warn(warning)
+    }
   }
 ]
