@@ -8,11 +8,11 @@ import packageJson from './package.json' with { type: 'json' }
 export default defineConfig(() => ({
   plugins: [
     react(),
-    tsConfigPaths(),``
+    tsConfigPaths(),
     dts({
       include: ['src/'],
       outDir: 'dist'
-    }),
+    })
   ],
   build: {
     lib: {
