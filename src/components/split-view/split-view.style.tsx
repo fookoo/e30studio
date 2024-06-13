@@ -1,5 +1,4 @@
-import { styled } from '@mui/system'
-
+import styled from '@emotion/styled'
 import { BAR_WIDTH } from './split-view.const'
 
 export const ColumnsContainer = styled('div')`
