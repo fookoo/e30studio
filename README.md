@@ -1,4 +1,4 @@
-# e30Studio
+# e30studio
 
 This package is a collection of React hooks and components, its contains also useful services
 
