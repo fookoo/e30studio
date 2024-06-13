@@ -1,35 +1,55 @@
 {
   "name": "e30studio",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "license": "MIT",
   "author": "Piotr Pliszczynski <fookoo@gmail.com>",
   "repository": "https://github.com/fookoo/e30studio",
-  "main": "cjs/index.js",
-  "types": "cjs/index.d.ts",
-  "module": "esm/index.js",
+  "sideEffects": false,
+  "types": "./index.d.ts",
+  "module": "./index.mjs",
+  "main": "./index.js",
   "scripts": {
-    "build": "rollup -c rollup.config.mjs",
+    "build": "./tsc && vite build",
     "lint": "eslint -c .eslintrc.json ./src/**/*.{ts,tsx} --fix",
     "test": "vitest"
+  },
+  "exports": {
+    "./components": {
+      "types": "./components/index.d.ts",
+      "default": "./components/index.mjs",
+      "require": "./components/index.js"
+    },
+    "./hooks": {
+      "types": "./hooks/index.d.ts",
+      "default": "./hooks/index.mjs",
+      "require": "./hooks/index.js"
+    },
+    "./services": {
+      "types": "./services/index.d.ts",
+      "default": "./services/index.mjs",
+      "require": "./services/index.js"
+    },
+    "./styled": {
+      "types": "./styled/index.d.ts",
+      "default": "./styled/index.mjs",
+      "require": "./styled/index.js"
+    }
   },
   "peerDependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.19",
+    "@mui/system": "^5.15.20",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rxjs": "^7.8.1",
+    "styled-components": "*",
     "uuid": "^10.0.0"
-  },
-  "dependencies": {
-    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.19",
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
@@ -38,6 +58,7 @@
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
     "@typescript-eslint/parser": "^7.13.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -53,13 +74,12 @@
     "prettier": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "rollup": "^4.18.0",
-    "rollup-plugin-dts": "^6.1.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rxjs": "^7.8.1",
     "typescript": "^5.4.5",
     "uuid": "^10.0.0",
+    "vite": "^5.3.0",
+    "vite-plugin-dts": "^3.9.1",
+    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
   },
   "packageManager": "yarn@4.3.0+sha512.1606bef7c84bc7d83b8576063de2fd08f7d69f9939015bed800f9585a002390268ecc777e9feeba7e26e9556aef6beaad4806968db2182ab5dd3e955ab3b9a0b"
