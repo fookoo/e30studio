@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { BAR_WIDTH } from './split-view.const'
+import { css } from '@emotion/react'
 
 export const ColumnsContainer = styled('div')`
   display: grid;
@@ -9,33 +9,21 @@ export const ColumnsContainer = styled('div')`
   overflow: hidden;
 `
 
-export const LeftColumn = styled('div')`
+const Column = styled('div')`
+  height: 100%;
+
+  & > *:first-of-type {
+    width: 100%;
+  }
+`
+
+export const LeftColumn = styled(Column)`
   position: relative;
-  overflow: hidden;
 
   box-shadow: 0 -3px 5px 1px rgba(0 0 0 / 3%);
 `
 
-export const ResizeBar = styled('div')`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: -${BAR_WIDTH}px;
-
-  z-index: 1;
-  width: ${2 * BAR_WIDTH}px;
-  background: black;
-
-  cursor: ew-resize;
-  opacity: 0.01;
-  transition: opacity 0.25s ease-in-out;
-
-  &:hover {
-    opacity: 0.075;
-  }
-`
-
-export const RightColumn = styled('div')`
+export const RightColumn = styled(Column)`
   display: flex;
   flex-grow: 1;
   background: rgba(0 0 0 / 0.5%);
@@ -43,3 +31,25 @@ export const RightColumn = styled('div')`
 
   overflow: auto hidden;
 `
+
+export const ResizeBar = styled('div')<{ barWidth: number }>(
+  ({ barWidth }) => css`
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+
+    z-index: 1;
+    width: ${barWidth}px;
+    transform: translateX(${barWidth / 2}px);
+    background: black;
+
+    cursor: ew-resize;
+    opacity: 0.01;
+    transition: opacity 0.25s ease-in-out;
+
+    &:hover {
+      opacity: 0.075;
+    }
+  `
+)
