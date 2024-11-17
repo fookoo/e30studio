@@ -4,7 +4,7 @@ import { BAR_WIDTH, MAX_WIDTH, MIN_WIDTH } from './split-view.const'
 import { ColumnsContainer, ResizeBar, LeftColumn, RightColumn } from './split-view.style'
 import { LocalStorageService } from '../../services'
 
-export interface ISplitViewProps {
+interface ISplitViewProps {
   localStorageKey?: string
   minWidth?: number
   maxWidth?: number
