@@ -202,6 +202,25 @@ export const App: React.FC = () => {
 }
 ```
 
+### AutoSize
+
+AutoSize component provide dimensions of container
+
+
+##### Example
+
+```typescript jsx
+import { AutoSize } from 'e30studio/components'
+
+export const TestExample = () => (
+        <AutoSize>
+          {({ width, height }) => (
+                  <span>My container is {width}px x {height}px</span>
+          )}
+        </AutoSize>
+)
+```
+
 ## Services
 
 Service is a static class that can perform various things
