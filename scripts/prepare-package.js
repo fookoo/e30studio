@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs')
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJSON = require('./../package.json')
 
 const cb = (err) => {
@@ -9,6 +7,7 @@ const cb = (err) => {
 // eslint-disable-next-line no-console
 console.log('Copying README.md ...')
 fs.copyFile('README.md', './dist/README.md', cb)
+fs.copyFile('LICENSE', './dist/LICENSE', cb)
 delete packageJSON.devDependencies
 delete packageJSON.scripts
 // eslint-disable-next-line no-console
