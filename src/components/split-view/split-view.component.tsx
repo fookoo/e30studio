@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react'
 
 import { BAR_WIDTH, MAX_WIDTH, MIN_WIDTH } from './split-view.const'
 import { ColumnsContainer, ResizeBar, LeftColumn, RightColumn } from './split-view.style'
-import { LocalStorageService } from 'e30Studio/services'
+import { LocalStorageService } from '../../services'
 
 interface ISplitViewProps {
   localStorageKey?: string
