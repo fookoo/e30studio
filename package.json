@@ -1,6 +1,6 @@
 {
   "name": "e30studio",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "license": "MIT",
   "author": "Piotr Pliszczynski <fookoo@gmail.com>",
   "repository": "https://github.com/fookoo/e30studio",
@@ -28,6 +28,11 @@
       "types": "./services/index.d.ts",
       "default": "./services/index.mjs",
       "require": "./services/index.js"
+    },
+    "./helpers": {
+      "types": "./helpers/index.d.ts",
+      "default": "./helpers/index.mjs",
+      "require": "./helpers/index.js"
     },
     "./styled": {
       "types": "./styled/index.d.ts",

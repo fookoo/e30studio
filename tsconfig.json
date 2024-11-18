@@ -12,6 +12,10 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "jsx": "react",
+
+    "paths": {
+      "e30Studio/*": ["src/*"]
+    }
   },
   "include": [
     "src/**/*.ts",
