@@ -29,6 +29,11 @@
       "default": "./services/index.mjs",
       "require": "./services/index.js"
     },
+    "./helpers": {
+      "types": "./helpers/index.d.ts",
+      "default": "./helpers/index.mjs",
+      "require": "./helpers/index.js"
+    },
     "./styled": {
       "types": "./styled/index.d.ts",
       "default": "./styled/index.mjs",

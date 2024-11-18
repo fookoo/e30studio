@@ -21,7 +21,8 @@ export default defineConfig(() => ({
         'src/hooks/index.ts',
         'src/components/index.ts',
         'src/services/index.ts',
-        'src/styled/index.ts'
+        'src/styled/index.ts',
+        'src/helpers/index.ts',
       ]
     },
     rollupOptions: {
