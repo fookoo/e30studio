@@ -2,13 +2,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 
-import tsConfigPaths from 'vite-tsconfig-paths'
 import packageJson from './package.json' with { type: 'json' }
+
+console.log([...Object.keys(packageJson.peerDependencies)])
 
 export default defineConfig(() => ({
   plugins: [
     react(),
-    tsConfigPaths(),
     dts({
       include: ['src/'],
       outDir: 'dist'
@@ -26,7 +26,7 @@ export default defineConfig(() => ({
       ]
     },
     rollupOptions: {
-      external: [...Object.keys(packageJson.peerDependencies)],
+      external: [...Object.keys(packageJson.peerDependencies), 'react/jsx-runtime'],
       output: {
         dir: 'dist',
         format: 'esm',
