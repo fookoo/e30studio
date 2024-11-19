@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-
+    "outDir": "dist",
     "moduleResolution": "node",
     "target": "es6",
     "module": "esNext",
@@ -11,11 +11,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "jsx": "react",
-
-    "paths": {
-      "e30Studio/*": ["src/*"]
-    }
+    "jsx": "react"
   },
   "include": [
     "src/**/*.ts",
