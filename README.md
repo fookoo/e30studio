@@ -221,6 +221,36 @@ export const TestExample = () => (
 )
 ```
 
+### CopyToClipboard
+
+Wrapper component that provide copy to clipboard functionality
+
+
+##### Example
+
+```typescript jsx
+import { ContentCopy } from '@mui/icons-material'
+import { CopyToClipboard } from 'e30studio/components'
+
+const WithIcon = ({ value }) => <CopyToClipboard value={value} icon={<ContentCopy />} />
+
+const WithStyle = styled(WithIcon)`
+display: flex;
+gap: var(--theme-gap);
+
+.value {
+  font-weight: var(--theme-font-bold);
+}
+
+.icon {
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+`
+```
+
+
 ## Services
 
 Service is a static class that can perform various things

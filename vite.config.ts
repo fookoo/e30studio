@@ -4,8 +4,6 @@ import dts from 'vite-plugin-dts'
 
 import packageJson from './package.json' with { type: 'json' }
 
-console.log([...Object.keys(packageJson.peerDependencies)])
-
 export default defineConfig(() => ({
   plugins: [
     react(),
