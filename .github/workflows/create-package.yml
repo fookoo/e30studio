@@ -24,7 +24,7 @@ jobs:
       - name: Build Package
         run: yarn build
       - name: Prepare package.json
-        run: node scripts/prepare-package.js
+        run: node scripts/prepare-package.cjs
       - name: Publish package
         run: |
           cd dist
