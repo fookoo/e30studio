@@ -28,3 +28,10 @@ export const takeValueFromCheckboxEvent =
   (event: React.ChangeEvent<HTMLInputElement>) => {
     callbacks.forEach((callback) => callback(event.target.checked))
   }
+
+export const stopPropagation =
+  <T extends (event: TEvent) => void, TEvent extends React.SyntheticEvent>(...callbacks: T[]) =>
+  (event: TEvent) => {
+    event.stopPropagation()
+    callbacks.forEach((callback) => callback(event))
+  }
