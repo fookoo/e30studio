@@ -71,7 +71,7 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
 
   return (
     <div ref={container} style={{ ...style, ...allAvailableSpace }}>
-      {!isInvalidSize && children(dimension)}
+      {!isInvalidSize ? children(dimension) : <div></div>}
     </div>
   )
 }
