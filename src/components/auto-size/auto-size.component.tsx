@@ -53,7 +53,7 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
       observer.observe(observedElement)
     } else {
       // this is a fallback if ResizeObserver is not supported
-      window.addEventListener('resize', debounced);
+      window.addEventListener('resize', debounced)
 
       setTimeout(debounced, 100)
     }
