@@ -52,7 +52,7 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
       observer = new ResizeObserver(debounced)
       observer.observe(observedElement)
     } else {
-      // this is fallback if ResizeObserver is not supported
+      // this is a fallback if ResizeObserver is not supported
       window.addEventListener('resize', debounced)
 
       setTimeout(debounced, 100)
@@ -67,9 +67,11 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
     }
   }, [])
 
+  const isInvalidSize = dimension.width === 0 || dimension.height === 0
+
   return (
     <div ref={container} style={{ ...style, ...allAvailableSpace }}>
-      {children(dimension)}
+      {!isInvalidSize && children(dimension)}
     </div>
   )
 }
