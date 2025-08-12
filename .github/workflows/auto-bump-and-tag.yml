@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Enable Corepack (for Yarn 4)
+        run: corepack enable
+
       - name: Determine bump type from PR labels
         id: bump_type
         run: |
