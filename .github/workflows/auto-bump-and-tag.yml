@@ -7,7 +7,7 @@ on:
 
 jobs:
   bump-version-and-tag:
-    if: github.event.pull_request.merged == true && github.base_ref == 'main'
+    if: github.event.pull_request.merged == true && github.base_ref == 'master'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -59,4 +59,4 @@ jobs:
           git add package.json yarn.lock
           git commit -m "chore(release): v$NEW_VERSION [skip ci]"
           git tag "v$NEW_VERSION"
-          git push origin main --tags
+          git push origin master --tags
