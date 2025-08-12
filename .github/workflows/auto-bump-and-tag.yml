@@ -56,7 +56,7 @@ jobs:
           BUMP_TYPE=${{ steps.bump_type.outputs.type }}
           echo "Bumping version with type: $BUMP_TYPE"
 
-          yarn version --$BUMP_TYPE --deferred
+          yarn version --bump $BUMP_TYPE --deferred
           NEW_VERSION=$(jq -r '.version' package.json)
           echo "New version: $NEW_VERSION"
 
