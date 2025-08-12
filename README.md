@@ -6,8 +6,8 @@ This package is a collection of React hooks and components, its contains also us
 - [Installation](#installation)
 - [Hooks](#hooks)
     - [useToggle](#useToggle)
-    - [useFeatureFlag](#useFeatureFlag)
-    - [useNotification](#useNotification)
+    - [useObject](#useObject)
+    - [useMemoObject](#useMemoObject)
 - [Components](#components)
     - [Notifications](#notifications)
     - [SplitView](#splitview)
@@ -64,6 +64,57 @@ export const Foo: React.FC = () => {
         <span>{value.toString()}</span>
         <button onClick={toggle}>toggle</button>
     </div>
+}
+```
+### useObject
+
+Hook for handling object changes easily
+
+##### Example
+
+```typescript jsx
+import React, { useCallback } from 'react'
+import { useObject } from 'e30studio/hooks'
+import { takeValueFromEvent } from 'e30studio/helpers'
+
+export const Foo: React.FC = ({ objProp }) => {
+  const { state, get, set, update } = useObject({ prop1: 'value1', prop2: 'value2', prop3: 'value3' });
+
+  const handlePartialUpdate = useCallback(() => update({ prop1: '', prop2: ''}), [update])
+  
+  const handleClear = useCallback(() => update({ prop1: '', prop2: '', prop3: ''}), [update])
+  
+  return <div>
+    <span>Whole object: {JSON.stringify(state)}</span>
+    <span>Part of object: {JSON.stringify(get('prop2'))}</span>
+    <span>Set object: <input type="text" value={state.prop2} onChange={takeValueFromEvent(set('prop2'))} /></span>
+    <span>Update partial: <button onClick={handlePartialUpdate}>Clear some</button></span>
+    <span>Update whole object: <button onClick={handleClear}>Clear all</button></span>
+  </div>
+}
+```
+
+
+### useMemoObject
+
+Hook for memoizing object, to use it with other hooks. It uses 'fast-deep-equal' to compare objects
+
+##### Example
+
+```typescript jsx
+import React, { useEffect } from 'react'
+import { useMemoObject } from 'e30studio/hooks'
+
+export const Foo: React.FC = ({ objProp }) => {
+  const stableObject = useMemoObject(objProp);
+
+  useEffect(() => {
+    // I am only running when object objProp really changes
+  }, [stableObject])
+
+  return <div>
+    Happy coding
+  </div>
 }
 ```
 
