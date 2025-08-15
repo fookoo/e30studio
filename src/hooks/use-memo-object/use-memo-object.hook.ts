@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import deepEqual from 'fast-deep-equal'
 
-export const useMemoObject = <T extends object>(input?: T) => {
+export const useMemoObject = <T extends object>(input: T) => {
   const objRef = useRef(input)
 
   useEffect(() => {
