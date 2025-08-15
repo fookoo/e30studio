@@ -1,14 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import deepEqual from 'fast-deep-equal'
 
 export const useMemoObject = <T>(input: T) => {
   const objRef = useRef(input)
 
-  useEffect(() => {
+  return useMemo(() => {
     if (!deepEqual(input, objRef.current)) {
       objRef.current = input
-    }
-  }, [input])
 
-  return objRef.current
+      return input
+    }
+
+    return objRef.current
+  }, [input])
 }
