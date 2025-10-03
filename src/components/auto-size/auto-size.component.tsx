@@ -47,6 +47,7 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
 
   useEffect(() => {
     let observer: ResizeObserver
+    let timerRef: NodeJS.Timeout
     const observedElement = container.current
 
     if (window.ResizeObserver && observedElement) {
@@ -56,7 +57,7 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
       // this is a fallback if ResizeObserver is not supported
       window.addEventListener('resize', debouncedHandleResize)
 
-      setTimeout(debouncedHandleResize, 100)
+      timerRef = setTimeout(debouncedHandleResize, 100)
     }
 
     return () => {
@@ -65,6 +66,10 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
       } else {
         window.removeEventListener('resize', debouncedHandleResize)
       }
+
+      if (timerRef) {
+        clearTimeout(timerRef)
+      }
     }
   }, [debouncedHandleResize])
 
@@ -72,7 +77,11 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
 
   return (
     <div ref={container} style={{ ...style, ...allAvailableSpace }}>
-      {!isInvalidSize ? children(dimension) : <div style={{ height: '1px', width: '1px' }}></div>}
+      {!isInvalidSize ? (
+        children(dimension)
+      ) : (
+        <div style={{ minHeight: '1px', minWidth: '1px' }}>{children(dimension)}</div>
+      )}
     </div>
   )
 }
