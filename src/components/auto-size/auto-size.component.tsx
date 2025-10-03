@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { debounce } from '../../helpers'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useDebounceCallback } from '../../hooks/use-debounce-callback/use-debounce-callback.hook'
 
 const allAvailableSpace = {
   width: '100%',
@@ -25,7 +25,7 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
     }
   })
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     if (container.current) {
       const width = container.current?.clientWidth
       const height = container.current?.clientHeight
@@ -41,31 +41,32 @@ export const AutoSize: React.FC<IAutoSizerProps> = ({ style, children }) => {
         return prev
       })
     }
-  }
+  }, [])
+
+  const debouncedHandleResize = useDebounceCallback(handleResize, 20)
 
   useEffect(() => {
     let observer: ResizeObserver
     const observedElement = container.current
-    const debounced = debounce(handleResize, 20)
 
     if (window.ResizeObserver && observedElement) {
-      observer = new ResizeObserver(debounced)
+      observer = new ResizeObserver(debouncedHandleResize)
       observer.observe(observedElement)
     } else {
       // this is a fallback if ResizeObserver is not supported
-      window.addEventListener('resize', debounced)
+      window.addEventListener('resize', debouncedHandleResize)
 
-      setTimeout(debounced, 100)
+      setTimeout(debouncedHandleResize, 100)
     }
 
     return () => {
       if (window.ResizeObserver && observedElement) {
         observer.unobserve(observedElement)
       } else {
-        window.removeEventListener('resize', debounced)
+        window.removeEventListener('resize', debouncedHandleResize)
       }
     }
-  }, [])
+  }, [debouncedHandleResize])
 
   const isInvalidSize = dimension.width === 0 || dimension.height === 0
 
