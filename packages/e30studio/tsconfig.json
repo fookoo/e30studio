@@ -1,17 +1,17 @@
 {
+
   "compilerOptions": {
-    "strict": true,
+    "target": "esnext",
+    "module": "esnext",
+    "declaration": true,
+    "emitDeclarationOnly": false,
     "outDir": "dist",
     "moduleResolution": "node",
-    "target": "es6",
-    "module": "esNext",
-    "declaration": true,
     "esModuleInterop": true,
-
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
     "resolveJsonModule": true,
-    "jsx": "react"
+    "skipLibCheck": true,
+    "strict": true
   },
   "include": [
     "src/**/*.ts",
@@ -20,8 +20,6 @@
   "exclude": [
     "dist",
     "node_modules",
-    "vite.config.ts",
-    "vitest.config.ts",
     "src/**/*.stories.*"
   ]
 }

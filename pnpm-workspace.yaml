@@ -1,0 +1,5 @@
+packages:
+  - packages/e30studio
+  - packages/app
+onlyBuiltDependencies:
+  - esbuild
