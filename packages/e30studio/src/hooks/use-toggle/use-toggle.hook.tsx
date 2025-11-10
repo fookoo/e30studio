@@ -13,11 +13,12 @@ interface UseToggleResponse {
 
 export const useToggle = (initialValue = false): UseToggleResponse => {
   const [value, setValue] = useState(initialValue)
+
   const open = useCallback(() => setValue(true), [])
   const close = useCallback(() => setValue(false), [])
-  const toggle = useCallback(() => setValue((p) => !p), [])
+  const toggle = useCallback(() => setValue((prev) => !prev), [])
 
-  const hook = useMemo(
+  return useMemo(
     () => ({
       v: value,
       value,
@@ -30,6 +31,4 @@ export const useToggle = (initialValue = false): UseToggleResponse => {
     }),
     [value, open, close, toggle]
   )
-
-  return hook
 }

@@ -8,7 +8,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly --declaration --outDir dist",
-    "lint": "eslint -c .eslintrc.json packages/lib/src/**/*.{ts,tsx} --fix",
+    "lint": "eslint -c .eslintrc.json src/**/*.{ts,tsx} --fix",
     "test": "vitest"
   },
   "exports": {
