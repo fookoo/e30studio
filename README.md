@@ -21,6 +21,8 @@ This package is a collection of React hooks and components, its contains also us
 
 ```
 yarn add e30studio
+pnpm add e30studio
+npm install e30studio
 ```
 
 ## Hooks
@@ -97,7 +99,7 @@ export const Foo: React.FC = ({ objProp }) => {
 
 ### useMemoObject
 
-Hook for memoizing object, to use it with other hooks. It uses 'fast-deep-equal' to compare objects
+Hook for memorizing objects, to use it with other hooks. It uses 'fast-deep-equal' to compare objects
 
 ##### Example
 
