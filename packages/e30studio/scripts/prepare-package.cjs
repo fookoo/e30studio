@@ -10,7 +10,7 @@ const cb = (err) => {
 }
 
 console.log('Copying README.md ...')
-fs.copyFile(path.resolve(__dirname, '../README.md'), path.join(distDir, 'README.md'), cb)
+fs.copyFile(path.resolve(__dirname, '../../../README.md'), path.join(distDir, 'README.md'), cb)
 fs.copyFile(path.resolve(__dirname, '../LICENSE'), path.join(distDir, 'LICENSE'), cb)
 
 delete packageJSON.devDependencies
