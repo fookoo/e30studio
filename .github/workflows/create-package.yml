@@ -27,7 +27,7 @@ jobs:
         run: node packages/e30studio/scripts/prepare-package.cjs
       - name: Publish package
         run: |
-          cd dist
+          cd packages/e30studio/dist
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
