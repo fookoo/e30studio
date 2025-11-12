@@ -124,28 +124,57 @@ export const Foo: React.FC = ({ objProp }) => {
 
 ### SplitView
 
-The `SplitView` component allows you to create a two-column layout where the width of the left column is adjustable. This component is ideal for creating resizable sidebars or any other layout with an adjustable left pane.
+The `SplitView` component allows you to create a resizable two-panel layout, either vertical (left/right) or horizontal (top/bottom). You can specify which panel is limited in size via the `limits` prop. Sizes are persisted optionally in local storage. Styling is done via CSS classes.
 
-Props:
+#### Props
 
-| Name            | Optional | Type   | Default      | Description                                           |
-|-----------------|--------|--------|--------------|-------------------------------------------------------|
-| localStorageKey | yes | string | 'split-view' | Key for localstorage to persist width across sessions |
-| minWidth        | yes | number | 200          | Minimal width of left column                          |
-| maxWidth        | yes | number | 800          | Maximal width of left column                          |
+| Name            | Optional | Type                                         | Default       | Description                                                                                     |
+|-----------------|----------|---------------------------------------------|---------------|-------------------------------------------------------------------------------------------------|
+| orientation     | yes      | `'vertical' | 'horizontal'`                 | `'vertical'`  | Determines whether panels are side by side (vertical) or stacked (horizontal)                  |
+| limits          | yes      | `'first' | 'second'`                         | `'first'`     | Indicates which panel's min/max size should be applied                                         |
+| min             | yes      | `number`                                    | `undefined`   | Minimal size (px) of the limited panel                                                         |
+| max             | yes      | `number`                                    | `undefined`   | Maximal size (px) of the limited panel                                                         |
+| localStorageKey | yes      | `string`                                    | `undefined`   | Key to persist the panel size in local storage                                                 |
+| className       | yes      | `string`                                    | `undefined`   | Additional CSS class for the container                                                        |
+| children        | no       | `[React.ReactElement, React.ReactElement]`  | —             | Two children representing the two panels                                                      |
 
+#### CSS classes
 
-##### Example
+| Element                  | Default class            | Description                                      |
+|---------------------------|-------------------------|--------------------------------------------------|
+| Container                 | `split-view`            | Wrapper element                                  |
+| First panel               | `split-view__first`     | First child panel                                |
+| Second panel              | `split-view__second`    | Second child panel                               |
+| Resize bar                | `split-view__bar`       | Draggable bar between the panels                |
+| Overlay (during resizing) | `split-view__overlay`   | Covers panels during drag to capture events     |
+
+#### Behavior
+
+- If no `min`/`max` is provided, the panels are initially split 50/50.
+- If `min` or `max` is provided, the initial split is 50/50 within those limits.
+- The panel specified in `limits` respects the `min` and `max` constraints.
+- Dragging the resize bar dynamically updates the panel size.
+- While resizing, an overlay captures events to avoid accidental selection or interaction.
+- Size persists in local storage if `localStorageKey` is provided.
+
+#### Example
 
 ```typescript jsx
 import React from 'react'
 import { SplitView } from 'e30studio/components'
 
 export const App: React.FC = () => {
-    return <SplitView>
-      <div>Left column</div>
-      <div>Right column</div>
-    </SplitView>
+  return (
+          <div style={{ width: '100vw', height: '100vh' }}>
+            <SplitView orientation="horizontal" limits="second" min={50} max={400} localStorageKey="main-split">
+              <div>Top Panel</div>
+              <SplitView orientation="vertical" limits="first" min={50} max={400}>
+                <div>Left Panel</div>
+                <div>Right Panel</div>
+              </SplitView>
+            </SplitView>
+          </div>
+  )
 }
 ```
 
