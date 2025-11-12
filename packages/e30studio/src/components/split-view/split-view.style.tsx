@@ -18,20 +18,23 @@ export const Content = styled.div`
   height: 100%;
 `
 
-export const ResizeBar = styled.div<{ barSize: number; orientation: 'vertical' | 'horizontal' }>`
-  ${({ orientation, barSize }) =>
+export const ResizeBar = styled.div<{ orientation: 'vertical' | 'horizontal' }>`
+  ${({ orientation }) =>
     orientation === 'vertical'
       ? `
-        width: ${barSize}px;
+        width: 6px;
         cursor: ew-resize;
-        `
+      `
       : `
-        height: ${barSize}px;
+        height: 6px;
         cursor: ns-resize;
-        `}
+      `}
+
   background-color: rgba(0, 0, 0, 0.1);
   user-select: none;
   transition: background-color 0.15s ease;
+  flex-shrink: 0;
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);
   }

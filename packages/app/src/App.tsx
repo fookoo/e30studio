@@ -9,7 +9,7 @@ function App() {
       width: '100vw',
     }}>
 
-     <SplitView orientation={'horizontal'} limits={'second'} max={400} min={50}>
+     <SplitView orientation={'horizontal'} limits={'second'}  min={200}>
        <div>Top</div>
          <SplitView orientation={'vertical'} max={400} min={50}>
            <div>Left Column2</div>

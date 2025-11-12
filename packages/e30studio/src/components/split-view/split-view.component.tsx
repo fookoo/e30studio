@@ -8,7 +8,7 @@ export interface SplitViewProps {
   localStorageKey?: string
   min?: number
   max?: number
-  barSize?: number
+  className?: string
   children: [React.ReactElement, React.ReactElement]
 }
 
@@ -16,18 +16,30 @@ export const SplitView: React.FC<SplitViewProps> = ({
   orientation = 'vertical',
   limits = 'first',
   localStorageKey,
-  min = 0,
-  max = Number.MAX_SAFE_INTEGER,
-  barSize = 6,
+  min,
+  max,
+  className,
   children
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
   const resizeBarRef = useRef<HTMLDivElement>(null)
   const sizeRef = useRef(0)
   const [isResizing, setIsResizing] = useState(false)
-  const [size, setSize] = useState(() => {
+
+  const [size, setSize] = useState<number>(() => {
     if (localStorageKey) {
-      return parseInt(LocalStorageService.get(localStorageKey, `${min}`), 10)
+      const stored = LocalStorageService.get<string | undefined>(localStorageKey, undefined)
+
+      if (stored) {
+        const parsed = parseInt(stored, 10)
+
+        if (!isNaN(parsed)) {
+          return Math.max(min ?? 0, Math.min(parsed, max ?? Number.MAX_SAFE_INTEGER))
+        }
+      }
     }
+
+    return 0
   })
 
   const handleMouseMove = useCallback(
@@ -38,11 +50,17 @@ export const SplitView: React.FC<SplitViewProps> = ({
       let newSize = 0
 
       if (orientation === 'vertical') {
-        const offset = limits === 'first' ? clientX : window.innerWidth - clientX
-        newSize = Math.min(Math.max(offset, min), max)
+        newSize = limits === 'first' ? clientX : window.innerWidth - clientX
       } else {
-        const offset = limits === 'first' ? clientY : window.innerHeight - clientY
-        newSize = Math.min(Math.max(offset, min), max)
+        newSize = limits === 'first' ? clientY : window.innerHeight - clientY
+      }
+
+      if (typeof min === 'number') {
+        newSize = Math.max(newSize, min)
+      }
+
+      if (typeof max === 'number') {
+        newSize = Math.min(newSize, max)
       }
 
       sizeRef.current = newSize
@@ -71,17 +89,39 @@ export const SplitView: React.FC<SplitViewProps> = ({
 
   const gridStyle = useMemo(() => {
     if (orientation === 'vertical') {
-      return {
-        gridTemplateColumns:
-          limits === 'first' ? `${size}px ${barSize}px auto` : `auto ${barSize}px ${size}px`
-      }
+      const firstSize = limits === 'first' ? `${size}px` : 'auto'
+      const secondSize = limits === 'second' ? `${size}px` : 'auto'
+
+      return { gridTemplateColumns: `${firstSize} min-content ${secondSize}` }
     }
 
-    return {
-      gridTemplateRows:
-        limits === 'first' ? `${size}px ${barSize}px auto` : `auto ${barSize}px ${size}px`
+    const firstSize = limits === 'first' ? `${size}px` : 'auto'
+    const secondSize = limits === 'second' ? `${size}px` : 'auto'
+
+    return { gridTemplateRows: `${firstSize} min-content ${secondSize}` }
+  }, [orientation, limits, size])
+
+  useEffect(() => {
+    if (size > 0) {
+      return
     }
-  }, [barSize, orientation, limits, size])
+
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const total = orientation === 'vertical' ? rect.width : rect.height
+
+    let initialSize = total / 2
+
+    if (min !== undefined) {
+      initialSize = Math.max(initialSize, min)
+    }
+
+    if (max !== undefined) {
+      initialSize = Math.min(initialSize, max)
+    }
+
+    setSize(initialSize)
+  }, [orientation, min, max, size])
 
   useEffect(() => {
     const resizeObj = resizeBarRef.current
@@ -97,10 +137,15 @@ export const SplitView: React.FC<SplitViewProps> = ({
   }, [handleMouseDown, handleMouseMove, handleMouseUp])
 
   return (
-    <Container style={gridStyle} orientation={orientation}>
-      <Content>{first}</Content>
-      <ResizeBar ref={resizeBarRef} orientation={orientation} barSize={barSize} />
-      <Content>{second}</Content>
+    <Container
+      className={`split-view ${className ?? ''}`}
+      ref={containerRef}
+      style={gridStyle}
+      orientation={orientation}
+    >
+      <Content className="split-view__first">{first}</Content>
+      <ResizeBar ref={resizeBarRef} className="split-view__bar" orientation={orientation} />
+      <Content className="split-view__second">{second}</Content>
       {isResizing && <Overlay orientation={orientation} />}
     </Container>
   )
