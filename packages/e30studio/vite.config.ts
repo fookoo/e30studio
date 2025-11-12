@@ -4,7 +4,23 @@ import { resolve } from 'path'
 import packageJson from './package.json' with { type: 'json' }
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'emotion-cjs-fix',
+      enforce: 'post',
+      generateBundle(_, bundle) {
+        for (const [fileName, chunk] of Object.entries(bundle)) {
+          if (fileName.endsWith('.cjs.js') && typeof chunk.code === 'string') {
+            chunk.code = chunk.code.replace(
+              /require\(['"]@emotion\/styled['"]\)/g,
+              '(require("@emotion/styled").default || require("@emotion/styled"))'
+            )
+          }
+        }
+      }
+    }
+  ],
   build: {
     lib: {
       entry: {
