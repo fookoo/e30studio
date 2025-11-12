@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
-import packageJson from './package.json' assert { type: 'json' }
+import packageJson from './package.json' with { type: 'json' }
 
 export default defineConfig({
   plugins: [react()],
@@ -15,14 +15,14 @@ export default defineConfig({
         styled: resolve(__dirname, 'src/styled/index.ts')
       },
       name: 'e30Studio',
-      formats: ['es']
+      formats: ['es', 'cjs']
     },
     rollupOptions: {
       external: [...Object.keys(packageJson.peerDependencies), 'react/jsx-runtime'],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
-        entryFileNames: '[name].js'
+        entryFileNames: '[name].[format].js'
       }
     }
   }
