@@ -44,15 +44,17 @@ export const SplitView: React.FC<SplitViewProps> = ({
 
   const handleMouseMove = useCallback(
     (event: MouseEvent) => {
-      if (!isResizing) return
+      if (!isResizing || !containerRef.current) return
 
-      const { clientX, clientY } = event
+      const rect = containerRef.current.getBoundingClientRect()
       let newSize = 0
 
       if (orientation === 'vertical') {
-        newSize = limits === 'first' ? clientX : window.innerWidth - clientX
+        const relativeX = event.clientX - rect.left
+        newSize = limits === 'first' ? relativeX : rect.width - relativeX
       } else {
-        newSize = limits === 'first' ? clientY : window.innerHeight - clientY
+        const relativeY = event.clientY - rect.top
+        newSize = limits === 'first' ? relativeY : rect.height - relativeY
       }
 
       if (typeof min === 'number') {
@@ -102,11 +104,10 @@ export const SplitView: React.FC<SplitViewProps> = ({
   }, [orientation, limits, size])
 
   useEffect(() => {
-    if (size > 0) {
+    if (size > 0 || !containerRef.current) {
       return
     }
 
-    if (!containerRef.current) return
     const rect = containerRef.current.getBoundingClientRect()
     const total = orientation === 'vertical' ? rect.width : rect.height
 
