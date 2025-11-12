@@ -14,23 +14,23 @@
   "exports": {
     "./components": {
       "types": "./dist/components/index.d.ts",
-      "default": "./dist/components/index.js"
+      "default": "./dist/components.js"
     },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
-      "default": "./dist/hooks/index.js"
+      "default": "./dist/hooks.js"
     },
     "./services": {
       "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./dist/services.js"
     },
     "./helpers": {
       "types": "./dist/helpers/index.d.ts",
-      "default": "./dist/helpers/index.js"
+      "default": "./dist/helpers.js"
     },
     "./styled": {
       "types": "./dist/styled/index.d.ts",
-      "default": "./dist/styled/index.js"
+      "default": "./dist/styled.js"
     }
   },
   "peerDependencies": {
