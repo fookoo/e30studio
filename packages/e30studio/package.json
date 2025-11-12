@@ -14,23 +14,29 @@
   "exports": {
     "./components": {
       "types": "./dist/components/index.d.ts",
-      "default": "./dist/components.js"
+      "import": "./dist/components.es.js",
+      "require": "./dist/components.cjs.js"
     },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
-      "default": "./dist/hooks.js"
+      "import": "./dist/hooks.es.js",
+      "require": "./dist/hooks.cjs.js"
+
     },
     "./services": {
       "types": "./dist/services/index.d.ts",
-      "default": "./dist/services.js"
+      "import": "./dist/services.es.js",
+      "require": "./dist/services.cjs.js"
     },
     "./helpers": {
       "types": "./dist/helpers/index.d.ts",
-      "default": "./dist/helpers.js"
+      "import": "./dist/helpers.es.js",
+      "require": "./dist/helpers.cjs.js"
     },
     "./styled": {
       "types": "./dist/styled/index.d.ts",
-      "default": "./dist/styled.js"
+      "import": "./dist/styled.es.js",
+      "require": "./dist/styled.cjs.js"
     }
   },
   "peerDependencies": {
