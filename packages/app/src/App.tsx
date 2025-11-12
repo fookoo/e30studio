@@ -1,16 +1,22 @@
-
-import './App.css'
-import { useToggle } from 'e30studio/hooks'
+import { SplitView } from 'e30studio/components'
 
 
 function App() {
-  const { value, toggle } = useToggle(false)
 
   return (
-    <>
-     <pre>{value ? 'on' : 'off'}</pre>
-      <button onClick={toggle}>on/off</button>
-    </>
+    <div style={{
+      height: '100vh',
+      width: '100vw',
+    }}>
+
+     <SplitView orientation={'horizontal'} limits={'second'} max={400} min={50}>
+       <div>Top</div>
+         <SplitView orientation={'vertical'} max={400} min={50}>
+           <div>Left Column2</div>
+           <div>Right Column</div>
+         </SplitView>
+     </SplitView>
+    </div>
   )
 }
 

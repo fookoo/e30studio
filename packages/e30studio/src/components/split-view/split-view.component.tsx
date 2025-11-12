@@ -1,70 +1,107 @@
-import React, { useCallback, useRef, useState } from 'react'
-
-import { BAR_WIDTH, MAX_WIDTH, MIN_WIDTH } from './split-view.const'
-import { ColumnsContainer, ResizeBar, LeftColumn, RightColumn } from './split-view.style'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { LocalStorageService } from '../../services'
+import { Container, Content, Overlay, ResizeBar } from './split-view.style'
 
-interface ISplitViewProps {
+export interface SplitViewProps {
+  orientation?: 'vertical' | 'horizontal'
+  limits?: 'first' | 'second'
   localStorageKey?: string
-  minWidth?: number
-  maxWidth?: number
-  barWidth?: number
+  min?: number
+  max?: number
+  barSize?: number
   children: [React.ReactElement, React.ReactElement]
 }
 
-export const SplitView: React.FC<ISplitViewProps> = ({
-  localStorageKey = 'split-view',
-  minWidth = MIN_WIDTH,
-  maxWidth = MAX_WIDTH,
-  barWidth = BAR_WIDTH,
+export const SplitView: React.FC<SplitViewProps> = ({
+  orientation = 'vertical',
+  limits = 'first',
+  localStorageKey,
+  min = 0,
+  max = Number.MAX_SAFE_INTEGER,
+  barSize = 6,
   children
 }) => {
-  const resizing = useRef(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [LeftColumnContent, RightColumnContent] = children
-  const [width, setWidth] = useState(() =>
-    parseInt(LocalStorageService.get(localStorageKey, `${minWidth}`), 10)
-  )
-
-  const handleSaveState = useCallback(() => {
-    if (resizing.current) {
-      resizing.current = false
-      LocalStorageService.set(localStorageKey, width.toString())
+  const resizeBarRef = useRef<HTMLDivElement>(null)
+  const sizeRef = useRef(0)
+  const [isResizing, setIsResizing] = useState(false)
+  const [size, setSize] = useState(() => {
+    if (localStorageKey) {
+      return parseInt(LocalStorageService.get(localStorageKey, `${min}`), 10)
     }
-  }, [localStorageKey, width])
+  })
 
-  const handleMove = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      if (resizing.current) {
-        const { currentTarget, clientX } = event
-        const newWidth = clientX - currentTarget.offsetLeft
+  const handleMouseMove = useCallback(
+    (event: MouseEvent) => {
+      if (!isResizing) return
 
-        setWidth(Math.min(Math.max(newWidth, minWidth), maxWidth))
+      const { clientX, clientY } = event
+      let newSize = 0
+
+      if (orientation === 'vertical') {
+        const offset = limits === 'first' ? clientX : window.innerWidth - clientX
+        newSize = Math.min(Math.max(offset, min), max)
+      } else {
+        const offset = limits === 'first' ? clientY : window.innerHeight - clientY
+        newSize = Math.min(Math.max(offset, min), max)
       }
 
+      sizeRef.current = newSize
+      setSize(newSize)
       event.preventDefault()
     },
-    [minWidth, maxWidth]
+    [isResizing, orientation, limits, min, max]
   )
 
-  const startResize = useCallback(() => {
-    resizing.current = true
+  const handleMouseUp = useCallback(() => {
+    if (isResizing) {
+      setIsResizing(false)
+      setSize(sizeRef.current)
+
+      if (localStorageKey) {
+        LocalStorageService.set(localStorageKey, sizeRef.current.toString())
+      }
+    }
+  }, [isResizing, localStorageKey])
+
+  const handleMouseDown = useCallback(() => {
+    setIsResizing(true)
   }, [])
 
+  const [first, second] = children
+
+  const gridStyle = useMemo(() => {
+    if (orientation === 'vertical') {
+      return {
+        gridTemplateColumns:
+          limits === 'first' ? `${size}px ${barSize}px auto` : `auto ${barSize}px ${size}px`
+      }
+    }
+
+    return {
+      gridTemplateRows:
+        limits === 'first' ? `${size}px ${barSize}px auto` : `auto ${barSize}px ${size}px`
+    }
+  }, [barSize, orientation, limits, size])
+
+  useEffect(() => {
+    const resizeObj = resizeBarRef.current
+    resizeObj?.addEventListener('mousedown', handleMouseDown)
+    window.addEventListener('mouseup', handleMouseUp)
+    window.addEventListener('mousemove', handleMouseMove)
+
+    return () => {
+      resizeObj?.removeEventListener('mousedown', handleMouseDown)
+      window.removeEventListener('mouseup', handleMouseUp)
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [handleMouseDown, handleMouseMove, handleMouseUp])
+
   return (
-    <ColumnsContainer
-      ref={containerRef}
-      style={{
-        gridTemplateColumns: `${width}px auto`
-      }}
-      onMouseMove={handleMove}
-      onMouseUp={handleSaveState}
-    >
-      <LeftColumn style={{ minWidth, maxWidth }}>
-        {LeftColumnContent}
-        <ResizeBar barWidth={barWidth} onMouseDown={startResize} />
-      </LeftColumn>
-      <RightColumn>{RightColumnContent}</RightColumn>
-    </ColumnsContainer>
+    <Container style={gridStyle} orientation={orientation}>
+      <Content>{first}</Content>
+      <ResizeBar ref={resizeBarRef} orientation={orientation} barSize={barSize} />
+      <Content>{second}</Content>
+      {isResizing && <Overlay orientation={orientation} />}
+    </Container>
   )
 }
