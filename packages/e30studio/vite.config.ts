@@ -11,6 +11,7 @@ export default defineConfig({
         components: resolve(__dirname, 'src/components/index.ts'),
         hooks: resolve(__dirname, 'src/hooks/index.ts'),
         services: resolve(__dirname, 'src/services/index.ts'),
+        helpers: resolve(__dirname, 'src/helpers/index.ts'),
         styled: resolve(__dirname, 'src/styled/index.ts')
       },
       name: 'e30Studio',
