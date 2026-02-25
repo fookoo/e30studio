@@ -9,8 +9,9 @@ This package is a collection of React hooks and components, its contains also us
     - [useObject](#useObject)
     - [useMemoObject](#useMemoObject)
 - [Components](#components)
-    - [Notifications](#notifications)
     - [SplitView](#splitview)
+    - [ConfirmModal](#confirmmodal)
+    - [CopyToClipboard](#copytoclipboard)
 - [Services](#services)
   - [LocalStorage](#localstorageservice)
   - [SessionStorage](#sessionstorageservice)
@@ -128,15 +129,15 @@ The `SplitView` component allows you to create a resizable two-panel layout, eit
 
 #### Props
 
-| Name            | Optional | Type                                         | Default       | Description                                                                                     |
-|-----------------|----------|---------------------------------------------|---------------|-------------------------------------------------------------------------------------------------|
-| orientation     | yes      | `'vertical' | 'horizontal'`                 | `'vertical'`  | Determines whether panels are side by side (vertical) or stacked (horizontal)                  |
-| limits          | yes      | `'first' | 'second'`                         | `'first'`     | Indicates which panel's min/max size should be applied                                         |
-| min             | yes      | `number`                                    | `undefined`   | Minimal size (px) of the limited panel                                                         |
-| max             | yes      | `number`                                    | `undefined`   | Maximal size (px) of the limited panel                                                         |
-| localStorageKey | yes      | `string`                                    | `undefined`   | Key to persist the panel size in local storage                                                 |
-| className       | yes      | `string`                                    | `undefined`   | Additional CSS class for the container                                                        |
-| children        | no       | `[React.ReactElement, React.ReactElement]`  | —             | Two children representing the two panels                                                      |
+| Name            | Optional | Type                                       | Default       | Description                                                                                     |
+|-----------------|----------|--------------------------------------------|---------------|-------------------------------------------------------------------------------------------------|
+| orientation     | yes      | `'vertical' \| 'horizontal'`               | `'vertical'`  | Determines whether panels are side by side (vertical) or stacked (horizontal)                  |
+| limits          | yes      | `'first' \| 'second'`                      | `'first'`     | Indicates which panel's min/max size should be applied                                         |
+| min             | yes      | `number`                                   | `undefined`   | Minimal size (px) of the limited panel                                                         |
+| max             | yes      | `number`                                   | `undefined`   | Maximal size (px) of the limited panel                                                         |
+| localStorageKey | yes      | `string`                                   | `undefined`   | Key to persist the panel size in local storage                                                 |
+| className       | yes      | `string`                                   | `undefined`   | Additional CSS class for the container                                                        |
+| children        | no       | `[React.ReactElement, React.ReactElement]` | —             | Two children representing the two panels                                                      |
 
 #### CSS classes
 
@@ -176,6 +177,64 @@ export const App: React.FC = () => {
           </div>
   )
 }
+```
+
+### ConfirmModal
+
+`ConfirmModalProvider` exposes a `confirm` function via the `useConfirm` hook. Calling `confirm` opens the modal and returns a Promise that resolves on confirm and rejects on cancel. Styling can be customized by targeting the default CSS classes, or by providing a custom modal component via `confirmModalComponent`.
+
+#### Default CSS classes
+
+Use these class names to override the default modal styles:
+```
+.confirm-modal-wrapper
+.confirm-modal-container
+.confirm-modal-header
+.confirm-modal-content
+.confirm-modal-actions
+.confirm-modal-actions-cancel
+.confirm-modal-actions-confirm
+```
+
+#### Custom component
+
+To fully control the markup and styles, pass your own component to `confirmModalComponent`. It should accept the same props as the default modal.
+
+#### Example
+
+```typescript jsx
+import React from 'react'
+import { ConfirmModalProvider, useConfirm } from 'e30studio/components'
+
+const ConfirmButton: React.FC = () => {
+  const { confirm } = useConfirm()
+
+  const handleClick = async () => {
+    try {
+      await confirm({ title: 'Are you sure?', message: 'This action cannot be undone.' })
+      // confirmed
+    } catch {
+      // canceled
+    }
+    
+    // or using .then/.catch
+    confirm({ title: 'Are you sure?', message: 'This action cannot be undone.' })
+      .then(() => {
+        // confirmed
+      })
+      .catch(() => { 
+        // canceled
+      })
+  }
+
+  return <button onClick={handleClick}>Delete</button>
+}
+
+export const App: React.FC = () => (
+  <ConfirmModalProvider>
+    <ConfirmButton />
+  </ConfirmModalProvider>
+)
 ```
 
 ### AutoSize
